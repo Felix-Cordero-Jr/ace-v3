@@ -1,0 +1,125 @@
+/* src/app/sign-in/[[...sign-in]]/signin.module.css */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
+
+:root{
+  --brand:#f4a63a;
+  --accent:#3db6a4;
+  --panel:#f5f7fa;
+  --text:#111827;
+}
+
+/* --- layout --- */
+.hero{
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  background:#fff url("/wave.jpg") center bottom / cover no-repeat;
+  position:relative;
+  overflow:hidden;
+}
+.container{ display:grid; justify-items:center; gap:clamp(12px,2vw,20px); padding:24px; z-index:1; }
+.brand{
+  font-family:"Fredoka",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-weight:700; font-size:clamp(48px,9vw,112px); line-height:0.5; color:var(--brand); margin: 0; text-align:center;
+}
+.panel{
+  width:min(92vw,420px);
+  background:var(--panel);
+  border-radius:30px;
+  padding:28px 28px 14px;
+  box-shadow:0 24px 60px rgba(0,0,0,.12);
+  display:grid; justify-items:center; gap:10px;
+  margin-bottom:clamp(16px,4vh,36px);
+  /* keep overflow visible so header content isn’t clipped */
+  overflow:visible;
+}
+.clerkWrap{
+  width: 100%;
+  max-width: 0;
+  display: flex;
+  justify-content: center;      /* center horizontally */
+  align-items: center;          /* protect against odd vertical alignments */
+  margin-inline: auto;          /* guardrail in case grid alignment changes */
+}
+.powered{ margin:6px 0 6px; font-size:12px; color:#6b7280; text-align:center; }
+
+/* --- Clerk overrides --- */
+.hidden{ display:none !important; }
+.clerkRoot{
+  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.clerkCard{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+
+  /* inner padding */
+  padding: 20px 22px 18px !important;
+
+  width: 100% !important;
+  max-width: 380px !important;     /* slightly wider for better balance */
+  margin: 0 auto !important;       /* <- centers the card */
+  align-self: center !important;   /* <- extra guardrail */
+  overflow: visible !important;
+}
+.clerkForm{
+  gap: 12px !important;          /* was 10px */
+  margin-top: 8px !important;    /* adds room below header/title */
+}
+.clerkLabel{ font-size:12px !important; color:#6b7280 !important; }
+.clerkInput{
+  width:100% !important; border-radius:12px !important; border:1px solid #e5e7eb !important;
+  padding:10px 12px !important; background:#fff !important; outline:none !important;
+  box-shadow:inset 0 1px 0 rgba(0,0,0,.02) !important;
+}
+.clerkInput:focus{ border-color:var(--accent) !important; box-shadow:0 0 0 3px rgba(61,182,164,.25) !important; }
+.clerkPrimaryBtn{ border-radius:999px !important; padding:10px 16px !important; font-weight:600 !important; background:var(--accent) !important; border:0 !important; }
+.clerkPrimaryBtn:hover{ filter:brightness(.95); }
+.clerkFooter{ margin-top:6px !important; }
+.clerkFooterAction{ margin-top:6px !important; }
+.clerkFooterActionText,.clerkDividerText{ color:#6b7280 !important; }
+.clerkSocialBtn{ border-radius:12px !important; }
+
+/* --- Header: ghost + title inside card (no clipping, responsive) --- */
+.clerkHeaderGhost{
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  padding-top: 130px !important;
+  padding-bottom: 10px !important;
+  margin:0 0 6px !important;
+}
+.clerkHeaderGhost::before{
+  content:"";
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width: 132px; height: 132px;
+  background:url("/ghost.png") center / contain no-repeat;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.18));
+  border-radius:50%;
+}
+.clerkHeaderTitle{
+  margin:0 !important;
+  font-family:"Fredoka",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  font-weight:600 !important;
+  font-size:20px !important;
+  line-height:1.2 !important;
+  color:var(--text) !important;
+  text-align:center !important;
+}
+
+@media (max-width:420px){
+  .panel{ padding:22px 18px 10px; }
+  .clerkWrap{ max-width:100%; }
+  .clerkHeaderGhost{ padding-top: 98px !important; }
+  .clerkHeaderGhost::before{ width: 116px; height: 116px; top: 6px; }
+  .clerkHeaderTitle{ font-size:18px !important; }
+  .clerkCard{ max-width: 100% !important; padding: 16px 16px 14px !important; }
+}
+
+/* hide dev badge locally if it clashes */
+:global([data-localization-key="devPage.badge"]){ display:none !important; }
